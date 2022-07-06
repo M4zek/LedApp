@@ -41,4 +41,11 @@
         <item name="strokeColor">@color/white</item>
     </style>
 
+    <style name="tabLayout_style">
+        <item name="android:background">@color/transparent</item>
+        <item name="tabIndicatorColor">@color/accent_dark</item>
+        <item name="tabSelectedTextColor">@color/accent_dark</item>
+        <item name="tabTextAppearance">@style/TextAppearance.AppCompat.Small</item>
+    </style>
+
 </resources>

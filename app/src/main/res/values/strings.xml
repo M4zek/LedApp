@@ -1,21 +1,46 @@
 <resources>
     <string name="app_name">LedApp</string>
 
-<!--    STATUS BT       -->
+    <!--    STATUS BT       -->
     <string name="bt_connected">Connected</string>
     <string name="bt_disconnected">Disconnected</string>
     <string name="bt_disable">Disable</string>
     <string name="bt_not_supported">Not supported</string>
 
 
-<!--    TEXT VIEW STRING   -->
-    <string name="tv_bt_status">Status: </string>
-    <string name="tv_bt_name">Name: </string>
-    <string name="tv_bt_address">Address: </string>
+    <!--    TEXT VIEW STRING   -->
+    <string name="tv_bt_status">Status:</string>
+    <string name="tv_bt_name">Name:</string>
+    <string name="tv_bt_address">Address:</string>
 
-<!--    BUTTON'S STRING     -->
+    <!--    BUTTON'S STRING     -->
     <string name="btn_connect">Connect</string>
     <string name="btn_disconnect">Disconnect</string>
+
+    <!--    FRAGMENT TITLE      -->
+    <string name="title_fg_bluetooth">Bluetooth</string>
+    <string name="title_fg_home">Home</string>
+    <string name="title_fg_message">Message</string>
+    <string name="title_fg_settings">Settings</string>
+
+
+
+
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails</string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+
+
 
 
 </resources>
