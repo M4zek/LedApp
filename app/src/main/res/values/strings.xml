@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">LedApp</string>
+
+<!--    STATUS BT       -->
+    <string name="bt_connected">Connected</string>
+    <string name="bt_disconnected">Disconnected</string>
+    <string name="bt_disable">Disable</string>
+    <string name="bt_not_supported">Not supported</string>
+
+
+<!--    TEXT VIEW STRING   -->
+    <string name="tv_bt_status">Status: </string>
+    <string name="tv_bt_name">Name: </string>
+    <string name="tv_bt_address">Address: </string>
+
+<!--    BUTTON'S STRING     -->
+    <string name="btn_connect">Connect</string>
+    <string name="btn_disconnect">Disconnect</string>
+
+
+</resources>
