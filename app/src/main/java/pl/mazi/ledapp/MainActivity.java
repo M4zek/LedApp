@@ -30,7 +30,6 @@ public class MainActivity extends AppCompatActivity {
         initViewPager();
     }
 
-
     /////////////////////////////////////////////////////////////////
     //// MY METHODS
     /////////////////////////////////////////////////////////////////
@@ -45,39 +44,6 @@ public class MainActivity extends AppCompatActivity {
     private void initViewPager() {
         // Set view paget to tablayout
         tabLayout.setupWithViewPager(viewPager);
-
-        // Set selected tab layout icon color
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                switch (tab.getPosition()){
-                    case 0:
-
-                        break;
-
-                    case 1:
-                        break;
-
-                    case 2:
-
-                        break;
-
-                    case 3:
-
-                        break;
-                }
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
 
         // Initialize viewpager adapter
         VPAdapter vpAdapter = new VPAdapter(getSupportFragmentManager(),this);

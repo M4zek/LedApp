@@ -6,13 +6,12 @@
         android:layout_height="match_parent"
         tools:context=".fragment.BluetoothFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-            android:layout_width="wrap_content"
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_bluetooth"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:text="Bluetooth"
+            app:reverseLayout="true"
+            app:layout_constraintVertical_bias="0"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

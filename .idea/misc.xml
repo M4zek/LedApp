@@ -5,6 +5,7 @@
       <map>
         <entry key="..\:/Projekty/Java/Android/LedApp/app/src/main/res/drawable/ic_app_settings_24.xml" value="0.2651282051282051" />
         <entry key="..\:/Projekty/Java/Android/LedApp/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Projekty/Java/Android/LedApp/app/src/main/res/layout/device_info_layout.xml" value="0.25364583333333335" />
         <entry key="..\:/Projekty/Java/Android/LedApp/app/src/main/res/layout/fragment_bluetooth.xml" value="0.253125" />
         <entry key="..\:/Projekty/Java/Android/LedApp/app/src/main/res/layout/fragment_home.xml" value="0.253125" />
         <entry key="..\:/Projekty/Java/Android/LedApp/app/src/main/res/layout/fragment_message.xml" value="0.253125" />
