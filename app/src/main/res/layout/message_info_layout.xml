@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+            android:id="@+id/linearLayoutMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:orientation="vertical"
+            style="@style/bg_message_layout">
+
+        <TextView
+                android:id="@+id/dateTextView"
+                style="@style/tv_data_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:ignore="MissingConstraints"
+                android:text="Wen 10:48:30"/>
+
+        <TextView
+                android:id="@+id/messageTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bluetooth was connected with HC-05"
+                style="@style/tv_msg_message"
+                app:layout_constraintHorizontal_bias="0"
+                tools:ignore="MissingConstraints"/>
+
+    </LinearLayout>
+</RelativeLayout>

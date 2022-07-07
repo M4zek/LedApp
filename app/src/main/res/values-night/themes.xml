@@ -48,4 +48,27 @@
         <item name="tabTextAppearance">@style/TextAppearance.AppCompat.Small</item>
     </style>
 
+    <style name="bg_message_layout">
+        <item name="android:background">#32AAAAAA</item>
+        <item name="android:layout_margin">5dp</item>
+        <item name="android:padding">2dp</item>
+        <item name="cornerRadius">20dp</item>
+    </style>
+
+    <style name="tv_data_message">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/blue_dark</item>
+    </style>
+
+    <style name="tv_data_message_error">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/red_dark</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="tv_msg_message">
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">@color/gray_dark</item>
+    </style>
+
 </resources>
