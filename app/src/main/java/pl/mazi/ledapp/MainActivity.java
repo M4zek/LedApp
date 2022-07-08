@@ -1,26 +1,43 @@
 package pl.mazi.ledapp;
 
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
+import android.util.Log;
 import android.widget.TextView;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.tabs.TabLayout;
 import pl.mazi.ledapp.adapter.VPAdapter;
+import pl.mazi.ledapp.bluetooth.MyBluetoothInfo;
 import pl.mazi.ledapp.fragment.BluetoothFragment;
 import pl.mazi.ledapp.fragment.HomeFragment;
 import pl.mazi.ledapp.fragment.MessageFragment;
 import pl.mazi.ledapp.fragment.SettingsFragment;
+import pl.mazi.ledapp.intf.Status;
+import pl.mazi.ledapp.intf.What;
+import pl.mazi.ledapp.task.StatusMonitorTask;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.Timer;
+import java.util.TimerTask;
+
+public class MainActivity extends AppCompatActivity implements Status, What {
 
     /////////////////////////////////////////////////////////////////
     //// VARIABLES
     /////////////////////////////////////////////////////////////////
     private TabLayout tabLayout;
     private ViewPager viewPager;
+    private MyBluetoothInfo myBluetoothInfo;
+    private static Handler bt_info_Handler;
     private TextView tv_bt_status;
     private TextView tv_bt_name;
     private TextView tv_bt_address;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         assignVariables();
         initViewPager();
+        initStatusMonitor();
+        initHandler();
     }
 
     /////////////////////////////////////////////////////////////////
@@ -39,22 +58,91 @@ public class MainActivity extends AppCompatActivity {
         tv_bt_address =findViewById(R.id.tv_bt_address);
         tv_bt_name = findViewById(R.id.tv_bt_name);
         tv_bt_status = findViewById(R.id.tv_con_status);
+        myBluetoothInfo = MyBluetoothInfo.getInstance();
     }
 
     private void initViewPager() {
-        // Set view paget to tablayout
+        // Set view pager to tabLayout
         tabLayout.setupWithViewPager(viewPager);
 
         // Initialize viewpager adapter
-        VPAdapter vpAdapter = new VPAdapter(getSupportFragmentManager(),this);
+        VPAdapter vpAdapter = new VPAdapter(getSupportFragmentManager(), this);
 
-        // Initialize adapter fragments
+        // Adding fragments to adapter
         vpAdapter.addNewFragment(new BluetoothFragment(),getResources().getString(R.string.title_fg_bluetooth),R.drawable.ic_bluetooth_connected_white);
         vpAdapter.addNewFragment(new HomeFragment(),getResources().getString(R.string.title_fg_home),R.drawable.ic_home_white);
         vpAdapter.addNewFragment(new MessageFragment(),getResources().getString(R.string.title_fg_message),R.drawable.ic_message_white);
         vpAdapter.addNewFragment(new SettingsFragment(),getResources().getString(R.string.title_fg_settings),R.drawable.ic_settings_white);
 
+        // Set 4 pages as active
+        viewPager.setOffscreenPageLimit(4);
+
         // Set adapter to viewPager
         viewPager.setAdapter(vpAdapter);
+    }
+
+
+    private void initStatusMonitor() {
+        // Initialize status monitor task
+        StatusMonitorTask statusMonitorTask = new StatusMonitorTask();
+
+        // Create timer to task
+        Timer statusTimer = new Timer();
+
+        // Start bluetooth status monitoring every one second and with 2sec delay
+        statusTimer.scheduleAtFixedRate(statusMonitorTask,2000,1000);
+
+        // Start checking bluetooth status was change
+        statusTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                if(myBluetoothInfo.statusWasChange()){
+                    bt_info_Handler.obtainMessage(myBluetoothInfo.getCurrentStatus()).sendToTarget();
+                }
+            }
+        },2000,1000);
+    }
+
+    private void initHandler(){
+        // Initiate a new handler to watch for new messages
+        bt_info_Handler = new Handler(Looper.getMainLooper()){
+            @Override
+            public void handleMessage(@NonNull Message msg) {
+
+                // Checking the type of message received by all bluetooth statuses and device info status
+                switch (msg.what){
+
+                    // Status was change on disable
+                    case DISABLE:
+                        BluetoothFragment.getBluetoothHandler().obtainMessage(Status.DISABLE).sendToTarget();
+                        tv_bt_status.setText(getResources().getString(R.string.bt_disable));
+                        break;
+
+                    // Status was change on disconnect
+                    case DISCONNECT:
+                        BluetoothFragment.getBluetoothHandler().obtainMessage(Status.DISCONNECT).sendToTarget();
+                        tv_bt_status.setText(getResources().getString(R.string.bt_disconnected));
+                        break;
+
+                    // Status was change on connected
+                    case CONNECTED:
+                        BluetoothFragment.getBluetoothHandler().obtainMessage(Status.CONNECTED).sendToTarget();
+                        tv_bt_status.setText(getResources().getString(R.string.bt_connected));
+                        break;
+
+                    // Update device info in gui
+                    case UPDATE_DEVICE_INFO:
+                        tv_bt_name.setText(myBluetoothInfo.getDeviceName());
+                        tv_bt_address.setText(myBluetoothInfo.getDeviceAddress());
+                        break;
+                }
+            }
+        };
+    }
+
+
+    // Get handler
+    public static Handler getBt_info_Handler() {
+        return bt_info_Handler;
     }
 }

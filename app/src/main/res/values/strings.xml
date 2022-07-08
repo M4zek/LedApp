@@ -24,7 +24,8 @@
     <string name="title_fg_settings">Settings</string>
 
 
-
+    <!--    TOAST STRING    -->
+    <string name="toast_cannot_change_device">Cannot change device when bluetooth is connected!</string>
 
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>

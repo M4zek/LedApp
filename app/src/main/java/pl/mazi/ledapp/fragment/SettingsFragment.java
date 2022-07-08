@@ -1,6 +1,7 @@
 package pl.mazi.ledapp.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import androidx.preference.PreferenceFragmentCompat;
 import pl.mazi.ledapp.R;
 

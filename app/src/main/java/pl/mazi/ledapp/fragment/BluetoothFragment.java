@@ -1,6 +1,12 @@
 package pl.mazi.ledapp.fragment;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
+import android.util.Log;
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,18 +15,20 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import pl.mazi.ledapp.R;
 import pl.mazi.ledapp.adapter.DeviceListAdapter;
+import pl.mazi.ledapp.intf.Status;
 import pl.mazi.ledapp.model.DeviceInfoModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class BluetoothFragment extends Fragment {
+public class BluetoothFragment extends Fragment implements Status {
 
     /////////////////////////////////////////////////////////////////
     //// VARIABLES
     /////////////////////////////////////////////////////////////////
     private RecyclerView recyclerView;
     private DeviceListAdapter deviceListAdapter;
+    private static Handler bluetoothHandler;
 
     /////////////////////////////////////////////////////////////////
     //// OVERRIDE METHODS
@@ -30,6 +38,7 @@ public class BluetoothFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_bluetooth, container, false);
         initMethods(view);
+        Log.d("BluetoothFragment","Initialize");
         return view;
     }
 
@@ -39,16 +48,61 @@ public class BluetoothFragment extends Fragment {
     /////////////////////////////////////////////////////////////////
     private void initMethods(View view) {
         assignVariables(view);
+        initHandler();
         initRecyclerView();
     }
 
+
+
+
     private void assignVariables(View view) {
         recyclerView = view.findViewById(R.id.recycler_view_bluetooth);
-        deviceListAdapter = new DeviceListAdapter();
+        deviceListAdapter = new DeviceListAdapter(getContext());
     }
 
-    private void initRecyclerView() {
 
+
+    private void initRecyclerView() {
+        // Set adapter to recycler view
+        recyclerView.setAdapter(deviceListAdapter);
+
+        // Set layout manager into recycler view
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),RecyclerView.VERTICAL,false));
+    }
+
+
+
+
+    private void initHandler(){
+        bluetoothHandler = new Handler(Looper.getMainLooper()){
+            @Override
+            public void handleMessage(@NonNull Message msg) {
+                switch (msg.what){
+
+                    // Status was change on disconnect
+                    case DISABLE:
+                        setGuiDisable();
+                        break;
+
+                    // Status was change on disconnect
+                    case DISCONNECT:
+                        setGuiDisconnect();
+
+                        break;
+
+                    // Status was change on connected
+                    case CONNECTED:
+                        setGuiConnected();
+                        break;
+                }
+            }
+        };
+    }
+
+
+
+
+    private void initDeviceList(){
         List<Object> testList = new ArrayList<>();
         testList.add(new DeviceInfoModel("Test 0", "Test 0"));
         testList.add(new DeviceInfoModel("Test 1", "Test 1"));
@@ -58,11 +112,48 @@ public class BluetoothFragment extends Fragment {
 
         // Set test list to device list adapter
         deviceListAdapter.setDeviceList(testList);
+    }
 
-        // Set adapter to recycler view
-        recyclerView.setAdapter(deviceListAdapter);
 
-        // Set layout manager into recycler view
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),RecyclerView.VERTICAL,false));
+
+
+    private void setGuiDisable() {
+        // Clear device list
+        clearDeviceList();
+    }
+
+
+
+
+    private void setGuiDisconnect() {
+        // Set clickable item in recycler view
+        deviceListAdapter.setClickable(true);
+
+        // Get paired devices
+        initDeviceList();
+    }
+
+
+
+
+    private void setGuiConnected() {
+        // Set cannot click on the item in recycler view
+        deviceListAdapter.setClickable(false);
+    }
+
+
+
+
+    private void clearDeviceList(){
+        // Clear device list in adapter and update data
+        deviceListAdapter.clear();
+    }
+
+
+
+
+    public static Handler getBluetoothHandler() {
+        // Return gui handler
+        return bluetoothHandler;
     }
 }
