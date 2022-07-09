@@ -16,20 +16,21 @@
 
 
     <style name="bg_MainGridLayout">
+        <item name="android:useDefaultMargins">true</item>
         <item name="android:background">@color/primary_dark</item>
         <item name="android:padding">8dp</item>
     </style>
 
     <style name="bt_item_info_style">
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">14sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/white</item>
     </style>
 
     <style name="bt_value_item_style">
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">13sp</item>
         <item name="android:textStyle">italic</item>
-        <item name="android:textColor">@color/gray_dark</item>
+        <item name="android:textColor">@color/white</item>
     </style>
 
     <style name="btn_main_connect">

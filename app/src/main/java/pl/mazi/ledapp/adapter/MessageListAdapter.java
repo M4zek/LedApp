@@ -98,9 +98,6 @@ public class MessageListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 params.addRule(RelativeLayout.ALIGN_PARENT_END);
                 params.addRule(RelativeLayout.ALIGN_PARENT_START);
                 itemHolder.messageItemLayout.setGravity(Gravity.CENTER_HORIZONTAL);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    itemHolder.tv_messageDate.setTextAppearance(R.style.tv_data_message_error);
-                }
                 break;
 
             // Set the message to the right in the layout

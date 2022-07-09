@@ -1,5 +1,6 @@
 package pl.mazi.ledapp.bluetooth;
 
+import android.bluetooth.BluetoothSocket;
 import pl.mazi.ledapp.intf.Status;
 
 import java.util.ArrayList;
@@ -13,6 +14,8 @@ public class MyBluetoothInfo {
     private ArrayList<Integer> statusList;
     private String deviceName;
     private String deviceAddress;
+
+    private BluetoothSocket mySocket;
 
 
     /////////////////////////////////////////////////////////////////
@@ -81,5 +84,15 @@ public class MyBluetoothInfo {
     //Assign new device address
     public void setDeviceAddress(String deviceAddress) {
         this.deviceAddress = deviceAddress;
+    }
+
+    // Assign new device socket
+    public BluetoothSocket getMySocket() {
+        return mySocket;
+    }
+
+    // Get device socket
+    public void setMySocket(BluetoothSocket mySocket) {
+        this.mySocket = mySocket;
     }
 }

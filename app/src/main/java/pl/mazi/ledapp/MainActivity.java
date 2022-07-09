@@ -4,7 +4,11 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,6 +24,7 @@ import pl.mazi.ledapp.fragment.MessageFragment;
 import pl.mazi.ledapp.fragment.SettingsFragment;
 import pl.mazi.ledapp.intf.Status;
 import pl.mazi.ledapp.intf.What;
+import pl.mazi.ledapp.service.CreateConnectedThread;
 import pl.mazi.ledapp.task.StatusMonitorTask;
 
 import java.util.Timer;
@@ -37,6 +42,9 @@ public class MainActivity extends AppCompatActivity implements Status, What {
     private TextView tv_bt_status;
     private TextView tv_bt_name;
     private TextView tv_bt_address;
+    private Button btn_connecting;
+    private ProgressBar progressBar;
+    private CreateConnectedThread createConnectedThread;
 
 
     @Override
@@ -44,21 +52,42 @@ public class MainActivity extends AppCompatActivity implements Status, What {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         assignVariables();
+        initButtonClick();
         initViewPager();
         initStatusMonitor();
         initHandler();
     }
 
+
     /////////////////////////////////////////////////////////////////
     //// MY METHODS
     /////////////////////////////////////////////////////////////////
     private void assignVariables() {
+        btn_connecting = findViewById(R.id.btn_connect);
+        progressBar = findViewById(R.id.progressBar);
         tabLayout = findViewById(R.id.tabLayout);
         viewPager = findViewById(R.id.viewPager);
         tv_bt_address =findViewById(R.id.tv_bt_address);
         tv_bt_name = findViewById(R.id.tv_bt_name);
         tv_bt_status = findViewById(R.id.tv_con_status);
         myBluetoothInfo = MyBluetoothInfo.getInstance();
+    }
+
+    private void initButtonClick() {
+
+        btn_connecting.setOnClickListener((event)->{
+            if(btn_connecting.getText().equals(getResources().getString(R.string.btn_connect))){
+                if(myBluetoothInfo.getDeviceAddress().length() > 5 ){
+                    progressBar.setVisibility(View.VISIBLE);
+                    createConnectedThread = CreateConnectedThread.getInstance();
+                    createConnectedThread.initThread("00:20:12:08:B8:87");
+                    createConnectedThread.run();
+                }
+            } else {
+                progressBar.setVisibility(View.VISIBLE);
+                createConnectedThread.destroyThread();
+            }
+        });
     }
 
     private void initViewPager() {
@@ -114,31 +143,79 @@ public class MainActivity extends AppCompatActivity implements Status, What {
 
                     // Status was change on disable
                     case DISABLE:
-                        BluetoothFragment.getBluetoothHandler().obtainMessage(Status.DISABLE).sendToTarget();
-                        tv_bt_status.setText(getResources().getString(R.string.bt_disable));
+                        initGuiDisable();
                         break;
 
                     // Status was change on disconnect
                     case DISCONNECT:
-                        BluetoothFragment.getBluetoothHandler().obtainMessage(Status.DISCONNECT).sendToTarget();
-                        tv_bt_status.setText(getResources().getString(R.string.bt_disconnected));
+                        initGuiDisconnected();
                         break;
 
                     // Status was change on connected
                     case CONNECTED:
-                        BluetoothFragment.getBluetoothHandler().obtainMessage(Status.CONNECTED).sendToTarget();
-                        tv_bt_status.setText(getResources().getString(R.string.bt_connected));
+                        initGuiConnected();
+                        break;
+
+                    case CANNOT_CONNECTED:
+                        initGuiCannotConnected();
                         break;
 
                     // Update device info in gui
                     case UPDATE_DEVICE_INFO:
-                        tv_bt_name.setText(myBluetoothInfo.getDeviceName());
-                        tv_bt_address.setText(myBluetoothInfo.getDeviceAddress());
+                        updateDeviceInfo();
+                        break;
+
+                    default:
+                        Toast.makeText(MainActivity.this, msg.what, Toast.LENGTH_SHORT).show();
                         break;
                 }
             }
         };
     }
+
+    private void initGuiCannotConnected() {
+        BluetoothFragment.getBluetoothHandler().obtainMessage(Status.CANNOT_CONNECTED).sendToTarget();
+        tv_bt_status.setText(getResources().getString(R.string.bt_connected));
+        btn_connecting.setText(getResources().getString(R.string.btn_disconnect));
+        btn_connecting.setEnabled(true);
+        progressBar.setVisibility(View.INVISIBLE);
+    }
+
+    private void updateDeviceInfo() {
+        tv_bt_name.setText(myBluetoothInfo.getDeviceName());
+        tv_bt_address.setText(myBluetoothInfo.getDeviceAddress());
+    }
+
+    private void initGuiConnected() {
+        BluetoothFragment.getBluetoothHandler().obtainMessage(Status.CONNECTED).sendToTarget();
+        tv_bt_status.setText(getResources().getString(R.string.bt_connected));
+        btn_connecting.setText(getResources().getString(R.string.btn_disconnect));
+        btn_connecting.setEnabled(true);
+        progressBar.setVisibility(View.INVISIBLE);
+    }
+
+    private void initGuiDisable(){
+        BluetoothFragment.getBluetoothHandler().obtainMessage(Status.DISABLE).sendToTarget();
+        tv_bt_status.setText(getResources().getString(R.string.bt_disable));
+        btn_connecting.setText(getResources().getString(R.string.btn_connect));
+        btn_connecting.setEnabled(false);
+        progressBar.setVisibility(View.INVISIBLE);
+        clearGuiInfoDevice();
+    }
+
+    private void initGuiDisconnected(){
+        BluetoothFragment.getBluetoothHandler().obtainMessage(Status.DISCONNECT).sendToTarget();
+        tv_bt_status.setText(getResources().getString(R.string.bt_disconnected));
+        btn_connecting.setText(getResources().getString(R.string.btn_connect));
+        btn_connecting.setEnabled(true);
+        progressBar.setVisibility(View.INVISIBLE);
+    }
+
+    private void clearGuiInfoDevice(){
+        tv_bt_name.setText("...");
+        tv_bt_address.setText("...");
+    }
+
 
 
     // Get handler

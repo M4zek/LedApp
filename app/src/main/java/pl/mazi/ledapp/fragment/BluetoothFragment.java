@@ -1,6 +1,7 @@
 package pl.mazi.ledapp.fragment;
 
-import android.annotation.SuppressLint;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -20,6 +21,7 @@ import pl.mazi.ledapp.model.DeviceInfoModel;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class BluetoothFragment extends Fragment implements Status {
 
@@ -78,7 +80,6 @@ public class BluetoothFragment extends Fragment implements Status {
             @Override
             public void handleMessage(@NonNull Message msg) {
                 switch (msg.what){
-
                     // Status was change on disconnect
                     case DISABLE:
                         setGuiDisable();
@@ -87,12 +88,15 @@ public class BluetoothFragment extends Fragment implements Status {
                     // Status was change on disconnect
                     case DISCONNECT:
                         setGuiDisconnect();
-
                         break;
 
                     // Status was change on connected
                     case CONNECTED:
                         setGuiConnected();
+                        break;
+
+                    case CANNOT_CONNECTED:
+                        setGuiCannotConnected();
                         break;
                 }
             }
@@ -102,13 +106,12 @@ public class BluetoothFragment extends Fragment implements Status {
 
 
 
-    private void initDeviceList(){
+    private void initTestList(){
         List<Object> testList = new ArrayList<>();
         testList.add(new DeviceInfoModel("Test 0", "Test 0"));
         testList.add(new DeviceInfoModel("Test 1", "Test 1"));
         testList.add(new DeviceInfoModel("Test 2", "Test 2"));
         testList.add(new DeviceInfoModel("Test 3", "Test 3"));
-
 
         // Set test list to device list adapter
         deviceListAdapter.setDeviceList(testList);
@@ -116,12 +119,36 @@ public class BluetoothFragment extends Fragment implements Status {
 
 
 
+    private void initDeviceList(){
+        // Get bluetooth adapter
+        BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        ArrayList<Object> deviceList = new ArrayList<>();
+
+        // Checking if your device supports bluetooth
+        if(bluetoothAdapter != null){
+            // Get paired devices
+            Set<BluetoothDevice> deviceSet = bluetoothAdapter.getBondedDevices();
+
+            // Add paired device to list
+            for(BluetoothDevice item : deviceSet){
+                deviceList.add(new DeviceInfoModel(item.getName(),item.getAddress()));
+            }
+        }
+
+        // Assign new device list to adapter
+        deviceListAdapter.setDeviceList(deviceList);
+    }
+
 
     private void setGuiDisable() {
         // Clear device list
         clearDeviceList();
     }
 
+    private void setGuiCannotConnected() {
+        // Set clickable item in recycler view
+        deviceListAdapter.setClickable(true);
+    }
 
 
 
@@ -130,6 +157,7 @@ public class BluetoothFragment extends Fragment implements Status {
         deviceListAdapter.setClickable(true);
 
         // Get paired devices
+//        initTestList();
         initDeviceList();
     }
 
