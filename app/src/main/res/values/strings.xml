@@ -28,4 +28,40 @@
     <string name="toast_cannot_change_device">Cannot change device when bluetooth is connected!</string>
 
 
+    <!--    SETTINGS    -->
+
+    <!--    STRING COLOR -->
+    <string name="red">Red</string>
+    <string name="green">Green</string>
+    <string name="blue">Blue</string>
+    <string name="orange">Orange</string>
+    <string name="pink">Pink</string>
+    <string name="yellow">Yellow</string>
+
+        <!--    LED CATEGORY -->
+    <string name="settings_title_led">Led</string>
+    <string name="pref_num_of_led">Number of leds</string>
+    <string name="pref_data_pin">Data pin</string>
+    <string name="pref_color_order">Color oreder</string>
+    <string name="pref_turn_on_led_after_connect">Turn on led after connected</string>
+    <string name="pref_init_brightness">Input brightness</string>
+    <string name="pref_init_color">Input color</string>
+
+        <!-- =========================   -->
+
+        <!--    APP CATEGORY    -->
+    <string name="settings_title_application">Application</string>
+    <string name="pref_night_mode">Night mode</string>
+    <string name="pref_language">Language</string>
+
+        <!--    BLUETOOTH CATEGORY  -->
+    <string name="settings_title_bluetooth">Bluetooth</string>
+
+    <string name="pref_auto_turn_on_bluetooth">Turn on bluetooth automatically</string>
+    <string name="pref_summary_auto_turn_on_bluetooth">The app will ask to turn on bluetooth if it is disabled</string>
+
+    <string name="pref_auto_connect_with_device">Connect to device automatically</string>
+    <string name="pref_summary_auto_connect_with_device">The application will automatically connect to the device you specify below</string>
+
+    <string name="pref_device_name">Device name</string>
 </resources>

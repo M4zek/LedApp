@@ -160,7 +160,6 @@ public class BluetoothFragment extends Fragment implements Status {
         deviceListAdapter.setClickable(true);
 
         // Get paired devices
-
         // TODO TESTING BT LIST
 //        initTestList();
         initDeviceList();
