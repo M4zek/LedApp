@@ -1,9 +1,9 @@
 package pl.mazi.ledapp.bluetooth;
 
 import android.bluetooth.BluetoothSocket;
-import pl.mazi.ledapp.intf.Status;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class MyBluetoothInfo {
 
@@ -14,7 +14,6 @@ public class MyBluetoothInfo {
     private ArrayList<Integer> statusList;
     private String deviceName;
     private String deviceAddress;
-
     private BluetoothSocket mySocket;
 
 
@@ -33,9 +32,11 @@ public class MyBluetoothInfo {
     // Constructor
     public MyBluetoothInfo(){
         this.statusList = new ArrayList<Integer>();
-        this.statusList.add(Status.DISABLE);
-        this.statusList.add(Status.DISABLE);
-        this.statusList.add(Status.DISABLE);
+        this.statusList.add(null);
+        this.statusList.add(null);
+        this.statusList.add(null);
+        deviceAddress = "";
+        deviceName = "";
     }
 
     /////////////////////////////////////////////////////////////////
@@ -53,7 +54,7 @@ public class MyBluetoothInfo {
 
     // Method to check if the status has been changed
     public boolean statusWasChange(){
-        return statusList.get(1) != statusList.get(0);
+        return !Objects.equals(statusList.get(1), statusList.get(0));
     }
 
 

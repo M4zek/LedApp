@@ -1,7 +1,6 @@
 package pl.mazi.ledapp.adapter;
 
 import android.annotation.SuppressLint;
-import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -16,7 +15,6 @@ import org.jetbrains.annotations.NotNull;
 import pl.mazi.ledapp.MainActivity;
 import pl.mazi.ledapp.R;
 import pl.mazi.ledapp.bluetooth.MyBluetoothInfo;
-import pl.mazi.ledapp.fragment.BluetoothFragment;
 import pl.mazi.ledapp.intf.What;
 import pl.mazi.ledapp.model.DeviceInfoModel;
 
@@ -109,7 +107,7 @@ public class DeviceListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             row_index = position;
 
             // Sending a message to the handler in MainActivity to update the GUI
-            MainActivity.getBt_info_Handler().obtainMessage(What.UPDATE_DEVICE_INFO).sendToTarget();
+            MainActivity.getMainHandler().obtainMessage(What.UPDATE_DEVICE_INFO).sendToTarget();
 
             // Update date in recycler view
             notifyDataSetChanged();

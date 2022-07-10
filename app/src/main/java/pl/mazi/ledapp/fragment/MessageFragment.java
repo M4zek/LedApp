@@ -45,6 +45,8 @@ public class MessageFragment extends Fragment implements What {
         initHandler();
     }
 
+
+
     private void assignVariables(View view) {
         recyclerView = view.findViewById(R.id.recycler_view_message);
         messageListAdapter = new MessageListAdapter(getContext());

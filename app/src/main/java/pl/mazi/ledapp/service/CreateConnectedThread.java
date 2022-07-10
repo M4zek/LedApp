@@ -54,22 +54,19 @@ public class CreateConnectedThread extends Thread{
             mySocket.connect();
 
             // Send message to update bluetooth status
-            MainActivity.getBt_info_Handler().obtainMessage(Status.CONNECTED).sendToTarget();
+            MainActivity.getMainHandler().obtainMessage(Status.CONNECTED).sendToTarget();
 
-        } catch (IOException e){
+        } catch (Exception e){
             try{
                 mySocket.close();
-                MainActivity.getBt_info_Handler().obtainMessage(Status.CANNOT_CONNECTED).sendToTarget();
                 String msg_error = "CreateConnectedThread [run] : " + e.getMessage();
-                MessageFragment.getMessageHandler().obtainMessage(What.MESSAGE_ERROR,msg_error).sendToTarget();
-            } catch (IOException ex){
+                MessageFragment.getMessageHandler().obtainMessage(What.MESSAGE_ERROR, msg_error).sendToTarget();
+            } catch (Exception ex){
                 String msg_error = "CreateConnectedThread [run] : " + ex.getMessage();
                 MessageFragment.getMessageHandler().obtainMessage(What.MESSAGE_ERROR,msg_error).sendToTarget();
             }
             return;
         }
-
-
 
         // Init connected thread
         connectedThread.initThread(mySocket);
@@ -101,7 +98,7 @@ public class CreateConnectedThread extends Thread{
 
             // Assign thread socket variable
             mySocket = tmpSocket;
-        } catch (IOException e){
+        } catch (Exception e){
             // Send exception message to message fragment
             String msg_error = "CreateConnectedThread [initThread] : " + e.getMessage();
             MessageFragment.getMessageHandler().obtainMessage(What.MESSAGE_ERROR,msg_error).sendToTarget();
@@ -117,7 +114,7 @@ public class CreateConnectedThread extends Thread{
             mySocket = null;
 
             instance = null;
-        } catch (IOException e){
+        } catch (Exception e){
             String msg_error = "CreateConnectedThread [destroyThread] : " + e.getMessage();
             MessageFragment.getMessageHandler().obtainMessage(What.MESSAGE_ERROR,msg_error).sendToTarget();
         }

@@ -3,7 +3,6 @@ package pl.mazi.ledapp;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -12,8 +11,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.tabs.TabLayout;
 import pl.mazi.ledapp.adapter.VPAdapter;
@@ -38,13 +35,13 @@ public class MainActivity extends AppCompatActivity implements Status, What {
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private MyBluetoothInfo myBluetoothInfo;
-    private static Handler bt_info_Handler;
+    private static Handler mainHandler;
     private TextView tv_bt_status;
     private TextView tv_bt_name;
     private TextView tv_bt_address;
     private Button btn_connecting;
     private ProgressBar progressBar;
-    private CreateConnectedThread createConnectedThread;
+    private static CreateConnectedThread createConnectedThread;
 
 
     @Override
@@ -58,7 +55,6 @@ public class MainActivity extends AppCompatActivity implements Status, What {
         initHandler();
     }
 
-
     /////////////////////////////////////////////////////////////////
     //// MY METHODS
     /////////////////////////////////////////////////////////////////
@@ -70,6 +66,7 @@ public class MainActivity extends AppCompatActivity implements Status, What {
         tv_bt_address =findViewById(R.id.tv_bt_address);
         tv_bt_name = findViewById(R.id.tv_bt_name);
         tv_bt_status = findViewById(R.id.tv_con_status);
+        createConnectedThread = CreateConnectedThread.getInstance();
         myBluetoothInfo = MyBluetoothInfo.getInstance();
     }
 
@@ -80,8 +77,8 @@ public class MainActivity extends AppCompatActivity implements Status, What {
                 if(myBluetoothInfo.getDeviceAddress().length() > 5 ){
                     progressBar.setVisibility(View.VISIBLE);
                     createConnectedThread = CreateConnectedThread.getInstance();
-                    createConnectedThread.initThread("00:20:12:08:B8:87");
-                    createConnectedThread.run();
+                    createConnectedThread.initThread(myBluetoothInfo.getDeviceAddress());
+                    createConnectedThread.start();
                 }
             } else {
                 progressBar.setVisibility(View.VISIBLE);
@@ -126,7 +123,7 @@ public class MainActivity extends AppCompatActivity implements Status, What {
             @Override
             public void run() {
                 if(myBluetoothInfo.statusWasChange()){
-                    bt_info_Handler.obtainMessage(myBluetoothInfo.getCurrentStatus()).sendToTarget();
+                    mainHandler.obtainMessage(myBluetoothInfo.getCurrentStatus()).sendToTarget();
                 }
             }
         },2000,1000);
@@ -134,7 +131,7 @@ public class MainActivity extends AppCompatActivity implements Status, What {
 
     private void initHandler(){
         // Initiate a new handler to watch for new messages
-        bt_info_Handler = new Handler(Looper.getMainLooper()){
+        mainHandler = new Handler(Looper.getMainLooper()){
             @Override
             public void handleMessage(@NonNull Message msg) {
 
@@ -164,10 +161,6 @@ public class MainActivity extends AppCompatActivity implements Status, What {
                     case UPDATE_DEVICE_INFO:
                         updateDeviceInfo();
                         break;
-
-                    default:
-                        Toast.makeText(MainActivity.this, msg.what, Toast.LENGTH_SHORT).show();
-                        break;
                 }
             }
         };
@@ -177,6 +170,8 @@ public class MainActivity extends AppCompatActivity implements Status, What {
         BluetoothFragment.getBluetoothHandler().obtainMessage(Status.CANNOT_CONNECTED).sendToTarget();
         tv_bt_status.setText(getResources().getString(R.string.bt_connected));
         btn_connecting.setText(getResources().getString(R.string.btn_disconnect));
+        tv_bt_address.setText(getResources().getString(R.string.bt_not_supported));
+        tv_bt_name.setText(getResources().getString(R.string.bt_not_supported));
         btn_connecting.setEnabled(true);
         progressBar.setVisibility(View.INVISIBLE);
     }
@@ -216,10 +211,8 @@ public class MainActivity extends AppCompatActivity implements Status, What {
         tv_bt_address.setText("...");
     }
 
-
-
     // Get handler
-    public static Handler getBt_info_Handler() {
-        return bt_info_Handler;
+    public static Handler getMainHandler() {
+        return mainHandler;
     }
 }

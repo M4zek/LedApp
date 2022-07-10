@@ -14,10 +14,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import pl.mazi.ledapp.MainActivity;
 import pl.mazi.ledapp.R;
 import pl.mazi.ledapp.adapter.DeviceListAdapter;
 import pl.mazi.ledapp.intf.Status;
+import pl.mazi.ledapp.intf.What;
 import pl.mazi.ledapp.model.DeviceInfoModel;
+import pl.mazi.ledapp.model.MessageInfoModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -157,11 +160,11 @@ public class BluetoothFragment extends Fragment implements Status {
         deviceListAdapter.setClickable(true);
 
         // Get paired devices
+
+        // TODO TESTING BT LIST
 //        initTestList();
         initDeviceList();
     }
-
-
 
 
     private void setGuiConnected() {
