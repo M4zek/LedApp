@@ -11,6 +11,8 @@ import pl.mazi.ledapp.intf.What;
 import java.io.IOException;
 import java.util.UUID;
 
+
+// TODO Rebuild the entire bluetooth connection!
 public class CreateConnectedThread extends Thread{
 
     /////////////////////////////////////////////////////////////////
@@ -18,7 +20,7 @@ public class CreateConnectedThread extends Thread{
     /////////////////////////////////////////////////////////////////
 
     // Connected or connecting bluetooth socket
-    private BluetoothSocket mySocket;
+    private static BluetoothSocket mySocket;
 
     // Thread to write and read data from bluetooth
     private ConnectedThread connectedThread;
@@ -52,17 +54,13 @@ public class CreateConnectedThread extends Thread{
 
             // Try to connect with device
             mySocket.connect();
-
-            // Send message to update bluetooth status
-            MainActivity.getMainHandler().obtainMessage(Status.CONNECTED).sendToTarget();
-
         } catch (Exception e){
             try{
                 mySocket.close();
-                String msg_error = "CreateConnectedThread [run] : " + e.getMessage();
+                String msg_error = "CreateConnectedThread [run e0] : " + e.getMessage();
                 MessageFragment.getMessageHandler().obtainMessage(What.MESSAGE_ERROR, msg_error).sendToTarget();
             } catch (Exception ex){
-                String msg_error = "CreateConnectedThread [run] : " + ex.getMessage();
+                String msg_error = "CreateConnectedThread [run e1] : " + ex.getMessage();
                 MessageFragment.getMessageHandler().obtainMessage(What.MESSAGE_ERROR,msg_error).sendToTarget();
             }
             return;
@@ -120,4 +118,7 @@ public class CreateConnectedThread extends Thread{
         }
     }
 
+    public static BluetoothSocket getMySocket() {
+        return mySocket;
+    }
 }

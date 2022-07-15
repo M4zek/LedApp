@@ -10,12 +10,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+// TODO Rebuild the entire bluetooth connection!
 public class ConnectedThread extends Thread{
 
     /////////////////////////////////////////////////////////////////
     //// VARIABLES
     /////////////////////////////////////////////////////////////////
-
 
     // Connected or connecting bluetooth socket
     private static BluetoothSocket mySocket;
@@ -107,8 +107,9 @@ public class ConnectedThread extends Thread{
             myOutputStream = tmpOutputStream;
         } catch (Exception e){
             // Send exception message to message fragment
-            String msg_error = "ConnectedThread [constructor] : " + e.getMessage();
+            String msg_error = "ConnectedThread [initThread] : " + e.getMessage();
             MessageFragment.getMessageHandler().obtainMessage(What.MESSAGE_ERROR,msg_error).sendToTarget();
+            destroyThread();
         }
     }
 

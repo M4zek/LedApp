@@ -12,10 +12,17 @@
     <string name="tv_bt_status">Status</string>
     <string name="tv_bt_name">Name</string>
     <string name="tv_bt_address">Address</string>
+    <string name="tv_bt_not_connect">No bluetooth connection!</string>
+    <string name="tv_brightness">Brightness</string>
 
     <!--    BUTTON'S STRING     -->
     <string name="btn_connect">Connect</string>
     <string name="btn_disconnect">Disconnect</string>
+    <string name="btn_turn_on">Turn on</string>
+    <string name="btn_turn_ff">Turn off</string>
+    <string name="btn_confirm">Confirm</string>
+    <string name="btn_cancel">Cancel</string>
+
 
     <!--    FRAGMENT TITLE      -->
     <string name="title_fg_bluetooth">Bluetooth</string>
@@ -64,4 +71,13 @@
     <string name="pref_summary_auto_connect_with_device">The application will automatically connect to the device you specify below</string>
 
     <string name="pref_device_name">Device name</string>
+
+
+
+
+
+    <!--   PATTERN'S   -->
+
+
+
 </resources>

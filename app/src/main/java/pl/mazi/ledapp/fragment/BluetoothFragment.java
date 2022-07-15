@@ -97,10 +97,6 @@ public class BluetoothFragment extends Fragment implements Status {
                     case CONNECTED:
                         setGuiConnected();
                         break;
-
-                    case CANNOT_CONNECTED:
-                        setGuiCannotConnected();
-                        break;
                 }
             }
         };
@@ -161,8 +157,8 @@ public class BluetoothFragment extends Fragment implements Status {
 
         // Get paired devices
         // TODO TESTING BT LIST
-//        initTestList();
-        initDeviceList();
+        initTestList();
+//        initDeviceList();
     }
 
 
@@ -170,8 +166,6 @@ public class BluetoothFragment extends Fragment implements Status {
         // Set cannot click on the item in recycler view
         deviceListAdapter.setClickable(false);
     }
-
-
 
 
     private void clearDeviceList(){
