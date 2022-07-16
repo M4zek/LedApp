@@ -73,10 +73,27 @@
     <string name="pref_device_name">Device name</string>
 
 
-
-
-
     <!--   PATTERN'S   -->
+    <string name="pattern_knight_rider">Knight Rider</string>
+    <string name="pattern_knight_description">Pattern made on the basis of the cult series Knight Rider. Passing red light from left to right and right to left!</string>
+    <string name="pattern_knight_rider_option_1">Red</string>
+    <string name="pattern_knight_rider_option_2">Colorful</string>
+
+    <string name="pattern_one_color">One color</string>
+    <string name="pattern_one_color_description">Your LEDs will light up in the color of your choice!</string>
+
+    <string name="pattern_rainbow">Rainbow</string>
+    <string name="pattern_rainbow_description">A beautiful rainbow coming through your led strip. It can be plain or with added sparkles.</string>
+    <string name="pattern_rainbow_option_1">Normal</string>
+    <string name="pattern_rainbow_option_2">Sparkles</string>
+
+    <string name="pattern_breathing">Breathing</string>
+    <string name="pattern_breathing_description">A pattern that mimics breathing. Choose a color and enjoy the slow pulsing light!</string>
+
+    <string name="pattern_confetti">Confetti</string>
+    <string name="pattern_bpm">BPM</string>
+    <string name="pattern_juggle">Juggle</string>
+    <string name="pattern_faded">Faded</string>
 
 
 

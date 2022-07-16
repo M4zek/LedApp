@@ -8,7 +8,7 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/relativeLayout"
+            android:id="@+id/constraintLayout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:padding="16dp"
@@ -23,6 +23,7 @@
                 android:id="@+id/rv_Patterns"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+
                 app:layout_constraintBottom_toTopOf="@+id/tv_brightness"
                 app:layout_constraintTop_toTopOf="parent"/>
 
@@ -66,8 +67,8 @@
             android:text="@string/tv_bt_not_connect"
             style="@style/tv_not_connection"
             android:textAlignment="center"
-            app:layout_constraintBottom_toBottomOf="@+id/relativeLayout"
-            app:layout_constraintTop_toTopOf="@+id/relativeLayout"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
 

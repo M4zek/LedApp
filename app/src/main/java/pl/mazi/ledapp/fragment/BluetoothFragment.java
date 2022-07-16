@@ -157,8 +157,8 @@ public class BluetoothFragment extends Fragment implements Status {
 
         // Get paired devices
         // TODO TESTING BT LIST
-        initTestList();
-//        initDeviceList();
+//        initTestList();
+        initDeviceList();
     }
 
 
@@ -172,9 +172,6 @@ public class BluetoothFragment extends Fragment implements Status {
         // Clear device list in adapter and update data
         deviceListAdapter.clear();
     }
-
-
-
 
     public static Handler getBluetoothHandler() {
         // Return gui handler

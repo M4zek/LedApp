@@ -183,6 +183,7 @@ public class MainActivity extends AppCompatActivity implements Status, What {
 
     private void initGuiConnected() {
         BluetoothFragment.getBluetoothHandler().obtainMessage(Status.CONNECTED).sendToTarget();
+        HomeFragment.getHomeHandler().obtainMessage(Status.CONNECTED).sendToTarget();
         tv_bt_status.setText(getResources().getString(R.string.bt_connected));
         btn_connecting.setText(getResources().getString(R.string.btn_disconnect));
         btn_connecting.setEnabled(true);
@@ -191,6 +192,7 @@ public class MainActivity extends AppCompatActivity implements Status, What {
 
     private void initGuiDisable(){
         BluetoothFragment.getBluetoothHandler().obtainMessage(Status.DISABLE).sendToTarget();
+        HomeFragment.getHomeHandler().obtainMessage(Status.DISABLE).sendToTarget();
         tv_bt_status.setText(getResources().getString(R.string.bt_disable));
         btn_connecting.setText(getResources().getString(R.string.btn_connect));
         btn_connecting.setEnabled(false);
@@ -200,6 +202,7 @@ public class MainActivity extends AppCompatActivity implements Status, What {
 
     private void initGuiDisconnected(){
         BluetoothFragment.getBluetoothHandler().obtainMessage(Status.DISCONNECT).sendToTarget();
+        HomeFragment.getHomeHandler().obtainMessage(Status.DISCONNECT).sendToTarget();
         tv_bt_status.setText(getResources().getString(R.string.bt_disconnected));
         btn_connecting.setText(getResources().getString(R.string.btn_connect));
         btn_connecting.setEnabled(true);

@@ -4,35 +4,44 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PatternModel {
-
-    public enum Type{
+    public enum Style{
         SINGLE,
-        CUSTOM
+        CUSTOM,
     }
 
-    private Type type;
+    private Style style;
 
     private String title;
 
-    private List<String> patternOptions;
+    private String description;
 
-    public PatternModel(Type type, String title) {
-        this.type = type;
+    private int icon;
+
+    List<String> subPatternList;
+
+
+    // Constructors
+    public PatternModel(Style style, int icon,String title, String description ,List<String> subPatternList) {
+        this.style = style;
         this.title = title;
+        this.icon = icon;
+        this.subPatternList = subPatternList;
+        this.description = description;
     }
 
-    public PatternModel(Type type, String title, List<String> patternOptions) {
-        this.type = type;
+    public PatternModel(Style style, int icon,String title, String description) {
+        this.style = style;
         this.title = title;
-        this.patternOptions = patternOptions;
+        this.description = description;
     }
 
-    public Type getType() {
-        return type;
+    // GETTERS & SETTERS
+    public Style getStyle() {
+        return style;
     }
 
-    public void setType(Type type) {
-        this.type = type;
+    public void setStyle(Style style) {
+        this.style = style;
     }
 
     public String getTitle() {
@@ -43,11 +52,27 @@ public class PatternModel {
         this.title = title;
     }
 
-    public List<String> getPatternOptions() {
-        return patternOptions;
+    public int getIcon() {
+        return icon;
     }
 
-    public void setPatternOptions(List<String> patternOptions) {
-        this.patternOptions = patternOptions;
+    public void setIcon(int icon) {
+        this.icon = icon;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public List<String> getSubPatternList() {
+        return subPatternList;
+    }
+
+    public void setSubPatternList(List<String> subPatternList) {
+        this.subPatternList = subPatternList;
     }
 }

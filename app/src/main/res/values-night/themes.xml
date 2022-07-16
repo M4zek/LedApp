@@ -79,17 +79,15 @@
     </style>
 
     <style name="btn_cancel">
-        <item name="android:backgroundTint">@color/gray_dark</item>
+        <item name="android:backgroundTint">@color/bgColor</item>
         <item name="android:textSize">14sp</item>
         <item name="android:textAllCaps">false</item>
     </style>
 
     <style name="btn_confirm">
-        <item name="android:backgroundTint">@color/blue_dark</item>
+        <item name="android:backgroundTint">@color/accent_dark</item>
         <item name="android:textSize">14sp</item>
         <item name="android:textAllCaps">false</item>
     </style>
-
-
 
 </resources>
