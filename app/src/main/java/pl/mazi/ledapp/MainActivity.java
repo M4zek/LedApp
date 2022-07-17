@@ -22,6 +22,7 @@ import pl.mazi.ledapp.fragment.SettingsFragment;
 import pl.mazi.ledapp.intf.Status;
 import pl.mazi.ledapp.intf.What;
 import pl.mazi.ledapp.service.CreateConnectedThread;
+import pl.mazi.ledapp.settings.MySettings;
 import pl.mazi.ledapp.task.StatusMonitorTask;
 
 import java.util.Timer;

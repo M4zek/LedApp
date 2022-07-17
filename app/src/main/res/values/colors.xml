@@ -19,7 +19,9 @@
     <color name="textColor_dark">#000</color>
     <color name="gray_dark">#AAAAAA</color>
     <color name="blue_dark">#058ED9</color>
+    <color name="blue_dark_25">#40058ED9</color>
     <color name="orange">#ff6f00</color>
+    <color name="orange_25">#40FF6F00</color>
     <color name="bgColor">#121212</color>
     <color name="red_dark">#FF0000</color>
 </resources>

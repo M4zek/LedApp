@@ -1,13 +1,4 @@
 <resources>
-    <!-- Reply Preference -->
-    <string-array name="color_order">
-        <item>RGB</item>
-        <item>RBG</item>
-        <item>BGR</item>
-        <item>BRG</item>
-        <item>GRB</item>
-        <item>GBR</item>
-    </string-array>
 
     <!--    APP LANGUAGE    -->
     <string-array name="language_entries">

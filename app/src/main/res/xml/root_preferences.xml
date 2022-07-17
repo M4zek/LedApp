@@ -18,25 +18,17 @@
                 app:defaultValue="7"
         />
 
-        <ListPreference
-                android:key="COLOR_ORDER"
-                app:title="@string/pref_color_order"
-                android:entries="@array/color_order"
-                android:entryValues="@array/color_order"
-                app:useSimpleSummaryProvider="true"
-                app:defaultValue="RGB"
-        />
-
         <SwitchPreferenceCompat
             app:title="@string/pref_turn_on_led_after_connect"
             app:key="LED_TURN_ON"
+            app:defaultValue="false"
         />
 
         <EditTextPreference
                 app:title="@string/pref_init_brightness"
                 app:key="INIT_BRIGHTNESS"
                 app:useSimpleSummaryProvider="true"
-                app:defaultValue="7"
+                app:defaultValue="50"
         />
 
         <ListPreference
@@ -56,6 +48,7 @@
         <SwitchPreferenceCompat
             app:title="@string/pref_night_mode"
             app:key="NIGHT_MOD"
+            app:defaultValue="true"
         />
 
         <ListPreference
@@ -64,8 +57,7 @@
             android:entries="@array/language_entries"
             android:entryValues="@array/language_value"
             app:useSimpleSummaryProvider="true"
-            app:defaultValue="pl"
-        />
+            app:defaultValue="en"/>
     </PreferenceCategory>
 
     <PreferenceCategory

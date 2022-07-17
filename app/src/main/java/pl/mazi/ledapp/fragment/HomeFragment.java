@@ -2,11 +2,9 @@ package pl.mazi.ledapp.fragment;
 
 import android.os.*;
 import android.util.Log;
-import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
@@ -14,19 +12,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import org.w3c.dom.Text;
 import pl.mazi.ledapp.R;
 import pl.mazi.ledapp.adapter.PatternListAdapter;
 import pl.mazi.ledapp.intf.Status;
 import pl.mazi.ledapp.intf.What;
 import pl.mazi.ledapp.model.PatternModel;
-import pl.mazi.ledapp.service.ConnectedThread;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
-import java.util.zip.CheckedOutputStream;
 
 public class HomeFragment extends Fragment {
 
@@ -88,24 +81,45 @@ public class HomeFragment extends Fragment {
         ArrayList<PatternModel> patternModels = new ArrayList<>();
 
         patternModels.add(new PatternModel(
-                PatternModel.Style.SINGLE,
-                R.drawable.rider,
+                PatternModel.Style.COLOR,
+                R.drawable.color_picker,
                 getString(R.string.pattern_one_color),
-                getString(R.string.pattern_rainbow_description)));
+                getString(R.string.pattern_one_color_description)));
 
         patternModels.add(new PatternModel(
-                PatternModel.Style.CUSTOM,
+                PatternModel.Style.BOX,
                 R.drawable.rainbow,
                 getString(R.string.pattern_rainbow),
                 getString(R.string.pattern_rainbow_description),
                 Arrays.asList(getString(R.string.pattern_rainbow_option_1),getString(R.string.pattern_rainbow_option_2))));
 
         patternModels.add(new PatternModel(
-                PatternModel.Style.CUSTOM,
+                PatternModel.Style.BOX,
                 R.drawable.rider,
                 getString(R.string.pattern_knight_rider),
-                getString(R.string.pattern_rainbow_description),
+                getString(R.string.pattern_knight_description),
                 Arrays.asList(getString(R.string.pattern_knight_rider_option_1),getString(R.string.pattern_knight_rider_option_2))));
+
+        patternModels.add(new PatternModel(
+                PatternModel.Style.SIMPLE,
+                R.drawable.confetti,
+                getString(R.string.pattern_confetti),
+                getString(R.string.pattern_confetti_description)
+        ));
+
+        patternModels.add(new PatternModel(
+                PatternModel.Style.SIMPLE,
+                R.drawable.bpm,
+                getString(R.string.pattern_bpm),
+                getString(R.string.pattern_bpm_description)
+        ));
+
+        patternModels.add(new PatternModel(
+                PatternModel.Style.SIMPLE,
+                R.drawable.juggle,
+                getString(R.string.pattern_juggle),
+                getString(R.string.pattern_juggle_description)
+        ));
 
 
         recyclerView.setAdapter(new PatternListAdapter(patternModels));
@@ -120,11 +134,16 @@ public class HomeFragment extends Fragment {
             }
 
             @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {}
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 Log.i("SekBar progress: ", String.valueOf(seekBar.getProgress()));
+                MessageFragment.getMessageHandler().obtainMessage(What.MESSAGE_ERROR,"Error").sendToTarget();
+                MessageFragment.getMessageHandler().obtainMessage(What.MESSAGE_SEND,"Send").sendToTarget();
+                MessageFragment.getMessageHandler().obtainMessage(What.MESSAGE_READ,"Read").sendToTarget();
             }
         });
     }

@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import org.jetbrains.annotations.NotNull;
 import pl.mazi.ledapp.R;
 import pl.mazi.ledapp.model.MessageInfoModel;
+import pl.mazi.ledapp.model.PatternModel;
 
 import java.util.ArrayList;
 

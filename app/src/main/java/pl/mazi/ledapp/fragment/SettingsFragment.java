@@ -8,16 +8,19 @@ import android.view.View;
 import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.preference.EditTextPreference;
+import androidx.preference.ListPreference;
+import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import org.jetbrains.annotations.NotNull;
 import pl.mazi.ledapp.R;
+import pl.mazi.ledapp.settings.MySettings;
 
+import java.util.List;
 import java.util.Locale;
 
+
+// TODO REBUILD ALL SETINGS
 public class SettingsFragment extends PreferenceFragmentCompat {
-
-
-
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
@@ -29,7 +32,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         EditTextPreference ledNumPref = getPreferenceManager().findPreference("LED_NUM");
         ledNumPref.setOnBindEditTextListener((editText -> {
             editText.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_SIGNED);
-
         }));
 
         EditTextPreference dataPinPref = getPreferenceManager().findPreference("DATA_PIN");
@@ -41,5 +43,13 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         brightnessPref.setOnBindEditTextListener((editText -> {
             editText.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_SIGNED);
         }));
+
+        ListPreference language = getPreferenceManager().findPreference("LANGUAGE");
+        language.setOnPreferenceChangeListener((preference, newValue) -> {
+            MySettings mySettings = new MySettings(getContext());
+            mySettings.loadLanguage(newValue.toString());
+            return true;
+        });
+
     }
 }

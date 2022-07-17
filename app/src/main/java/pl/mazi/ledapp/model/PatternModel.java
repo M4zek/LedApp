@@ -1,12 +1,13 @@
 package pl.mazi.ledapp.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class PatternModel {
     public enum Style{
-        SINGLE,
-        CUSTOM,
+
+        COLOR,
+        BOX,
+        SIMPLE
     }
 
     private Style style;
@@ -33,6 +34,7 @@ public class PatternModel {
         this.style = style;
         this.title = title;
         this.description = description;
+        this.icon = icon;
     }
 
     // GETTERS & SETTERS

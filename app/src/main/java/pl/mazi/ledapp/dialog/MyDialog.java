@@ -54,7 +54,7 @@ public class MyDialog extends Dialog {
 
     private void initDialogView() {
         switch (patternModel.getStyle()){
-            case SINGLE:
+            case COLOR:
                 ColorPickerView picker = createColorPicker();
                 optionLayout.addView(picker);
                 button_Confirm.setOnClickListener(event->{
@@ -63,7 +63,7 @@ public class MyDialog extends Dialog {
                 });
                 break;
 
-            case CUSTOM:
+            case BOX:
                 RadioGroup radioGroup = createRadioGroup();
                 optionLayout.addView(radioGroup);
                 button_Confirm.setOnClickListener(event->{
@@ -72,6 +72,16 @@ public class MyDialog extends Dialog {
                     MessageFragment.getMessageHandler().obtainMessage(What.MESSAGE_SEND,"You selected: " + radioButton.getText()).sendToTarget();
                 });
                 break;
+
+            case SIMPLE:
+                TextView textView = new TextView(getContext());
+                textView.setText(R.string.pattern_approve);
+                optionLayout.addView(textView);
+                button_Confirm.setOnClickListener(event->{
+                    MessageFragment.getMessageHandler().obtainMessage(What.MESSAGE_SEND,"You selected: " + patternModel.getTitle()).sendToTarget();
+                });
+                break;
+
         }
         tv_description.setText(patternModel.getDescription());
         tv_title.setText(patternModel.getTitle());

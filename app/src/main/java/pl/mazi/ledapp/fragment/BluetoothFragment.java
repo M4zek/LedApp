@@ -157,8 +157,8 @@ public class BluetoothFragment extends Fragment implements Status {
 
         // Get paired devices
         // TODO TESTING BT LIST
-//        initTestList();
-        initDeviceList();
+        initTestList();
+//        initDeviceList();
     }
 
 

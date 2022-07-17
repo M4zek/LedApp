@@ -1,107 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">LedApp</string>
-
-    <!--    STATUS BT       -->
     <string name="bt_connected">Connected</string>
     <string name="bt_disconnected">Disconnected</string>
     <string name="bt_disable">Disable</string>
     <string name="bt_not_supported">Not supported</string>
-
-
-    <!--    TEXT VIEW STRING   -->
     <string name="tv_bt_status">Status</string>
     <string name="tv_bt_name">Name</string>
     <string name="tv_bt_address">Address</string>
     <string name="tv_bt_not_connect">No bluetooth connection!</string>
     <string name="tv_brightness">Brightness</string>
-
-    <!--    BUTTON'S STRING     -->
     <string name="btn_connect">Connect</string>
     <string name="btn_disconnect">Disconnect</string>
     <string name="btn_turn_on">Turn on</string>
     <string name="btn_turn_ff">Turn off</string>
-    <string name="btn_confirm">Confirm</string>
     <string name="btn_cancel">Cancel</string>
-
-
-    <!--    FRAGMENT TITLE      -->
+    <string name="btn_confirm">Confirm</string>
     <string name="title_fg_bluetooth">Bluetooth</string>
     <string name="title_fg_home">Home</string>
     <string name="title_fg_message">Message</string>
     <string name="title_fg_settings">Settings</string>
-
-
-    <!--    TOAST STRING    -->
     <string name="toast_cannot_change_device">Cannot change device when bluetooth is connected!</string>
-
-
-    <!--    SETTINGS    -->
-
-    <!--    STRING COLOR -->
     <string name="red">Red</string>
     <string name="green">Green</string>
     <string name="blue">Blue</string>
     <string name="orange">Orange</string>
     <string name="pink">Pink</string>
     <string name="yellow">Yellow</string>
-
-        <!--    LED CATEGORY -->
     <string name="settings_title_led">Led</string>
     <string name="pref_num_of_led">Number of leds</string>
     <string name="pref_data_pin">Data pin</string>
     <string name="pref_turn_on_led_after_connect">Turn on led after connected</string>
     <string name="pref_init_brightness">Input brightness</string>
     <string name="pref_init_color">Input color</string>
-
-        <!-- =========================   -->
-
-        <!--    APP CATEGORY    -->
     <string name="settings_title_application">Application</string>
     <string name="pref_night_mode">Night mode</string>
     <string name="pref_language">Language</string>
-
-        <!--    BLUETOOTH CATEGORY  -->
     <string name="settings_title_bluetooth">Bluetooth</string>
-
     <string name="pref_auto_turn_on_bluetooth">Turn on bluetooth automatically</string>
     <string name="pref_summary_auto_turn_on_bluetooth">The app will ask to turn on bluetooth if it is disabled</string>
-
     <string name="pref_auto_connect_with_device">Connect to device automatically</string>
-    <string name="pref_summary_auto_connect_with_device">The application will automatically connect to the device you specify below</string>
-
+    <string name="pref_summary_auto_connect_with_device">The application will automatically connect to the device you
+        specify below
+    </string>
     <string name="pref_device_name">Device name</string>
-
-
-    <!--   PATTERN'S   -->
     <string name="pattern_knight_rider">Knight Rider</string>
-    <string name="pattern_knight_description">Pattern made on the basis of the cult series Knight Rider. Passing red light from left to right and right to left!</string>
+    <string name="pattern_knight_description">Pattern made on the basis of the cult series Knight Rider. Passing red
+        light from left to right and right to left!
+    </string>
     <string name="pattern_knight_rider_option_1">Red</string>
     <string name="pattern_knight_rider_option_2">Colorful</string>
-
     <string name="pattern_one_color">One color</string>
     <string name="pattern_one_color_description">Your LEDs will light up in the color of your choice!</string>
-
     <string name="pattern_rainbow">Rainbow</string>
-    <string name="pattern_rainbow_description">A beautiful rainbow coming through your led strip. It can be plain or with added sparkles.</string>
+    <string name="pattern_rainbow_description">A beautiful rainbow coming through your led strip. It can be plain or
+        with added sparkles.
+    </string>
     <string name="pattern_rainbow_option_1">Normal</string>
     <string name="pattern_rainbow_option_2">Sparkles</string>
-
     <string name="pattern_breathing">Breathing</string>
-    <string name="pattern_breathing_description">A pattern that mimics breathing. Choose a color and enjoy the slow pulsing light!</string>
-
+    <string name="pattern_breathing_description">A pattern that mimics breathing. Choose a color and enjoy the slow
+        pulsing light!
+    </string>
     <string name="pattern_approve">Just approve and enjoy the led pattern!</string>
-    
     <string name="pattern_confetti">Confetti</string>
     <string name="pattern_confetti_description">Led strip mimics confetti with flashes and color changing leds!</string>
-
     <string name="pattern_bpm">BPM</string>
     <string name="pattern_bpm_description">A pattern that simulates the rhythm of a beating heart 💖</string>
-
     <string name="pattern_juggle">Juggle</string>
     <string name="pattern_juggle_description">I can\'t remember what the pattern is</string>
-
     <string name="pattern_faded">Faded</string>
     <string name="pattern_faded_description">I can\'t remember what the pattern is</string>
-
-
 </resources>

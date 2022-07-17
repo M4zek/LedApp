@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">LedApp</string>
+    <string name="bt_connected">Połączony</string>
+    <string name="bt_disconnected">Rozłączony</string>
+    <string name="bt_disable">Wyłączony</string>
+    <string name="bt_not_supported">Nie wspierany</string>
+    <string name="tv_bt_status">Status</string>
+    <string name="tv_bt_name">Nazwa</string>
+    <string name="tv_bt_address">Adres</string>
+    <string name="tv_bt_not_connect">Brak połączenia z bluetooth!</string>
+    <string name="tv_brightness">Jasność</string>
+    <string name="btn_connect">Połącz</string>
+    <string name="btn_disconnect">Rozłącz</string>
+    <string name="btn_turn_on">Włącz</string>
+    <string name="btn_turn_ff">Wyłącz</string>
+    <string name="btn_confirm">Potwierdź</string>
+    <string name="btn_cancel">Anuluj</string>
+    <string name="title_fg_bluetooth">Bluetooth</string>
+    <string name="title_fg_home">Główna</string>
+    <string name="title_fg_message">Wiadomości</string>
+    <string name="title_fg_settings">Ustawienia</string>
+    <string name="toast_cannot_change_device">Nie można zmienic urządzenia gdy połączenie z bluetooth ijest aktywne!
+    </string>
+    <string name="red">Czerwony</string>
+    <string name="green">Zielony</string>
+    <string name="blue">Niebieski</string>
+    <string name="orange">Pomarańczowy</string>
+    <string name="pink">Różowy</string>
+    <string name="yellow">Zółty</string>
+    <string name="settings_title_led">Ledy</string>
+    <string name="pref_num_of_led">Liczba ledów</string>
+    <string name="pref_data_pin">Pin danych</string>
+    <string name="pref_turn_on_led_after_connect">Włącz ledy po połączeniu</string>
+    <string name="pref_init_brightness">Jasność startowa</string>
+    <string name="pref_init_color">Kolor startowy</string>
+    <string name="settings_title_application">Aplikacja</string>
+    <string name="pref_night_mode">Ciemny motyw</string>
+    <string name="pref_language">Język</string>
+    <string name="settings_title_bluetooth">Bluetooth</string>
+    <string name="pref_auto_turn_on_bluetooth">Włącz bluetooth automatycznie</string>
+    <string name="pref_summary_auto_turn_on_bluetooth">Aplikacja poprosi o włączenie bluetooth, jeśli jest on
+        wyłączony.
+    </string>
+    <string name="pref_auto_connect_with_device">Połącz się z urządzeniem automatycznie</string>
+    <string name="pref_summary_auto_connect_with_device">Aplikacja automatycznie połączy się z urządzeniem, które podasz
+        poniżej
+    </string>
+    <string name="pref_device_name">Nazwa urządzenia</string>
+    <string name="pattern_knight_rider">Knight Rider</string>
+    <string name="pattern_knight_description">Wzór wykonany na podstawie kultowego serialu Knight Rider. Przechodzenie
+        na czerwonym świetle z lewej do prawej i z prawej do lewej!
+    </string>
+    <string name="pattern_knight_rider_option_1">Czerwony</string>
+    <string name="pattern_knight_rider_option_2">Kolorwy</string>
+    <string name="pattern_one_color">Jednolity kolor</string>
+    <string name="pattern_one_color_description">Twoje diody LED zaświecą się na wybrany przez Ciebie kolor!</string>
+    <string name="pattern_rainbow">Tęcza</string>
+    <string name="pattern_rainbow_description">Piękna tęcza przechodząca przez Twój pasek ledowy. Może być zwykła lub z
+        dodatkiem iskier.
+    </string>
+    <string name="pattern_rainbow_option_1">Standardowa</string>
+    <string name="pattern_rainbow_option_2">Iskrząca</string>
+    <string name="pattern_breathing">Oddychnie</string>
+    <string name="pattern_breathing_description">Wzór, który naśladuje oddychanie. Wybierz kolor i ciesz się powoli
+        pulsującym światłem
+    </string>
+    <string name="pattern_approve">Wystarczy zatwierdzić i cieszyć się wzorem ledowym!</string>
+    <string name="pattern_confetti">Konfetti</string>
+    <string name="pattern_confetti_description">Pasek ledowy naśladuje konfetti z błyskami i zmieniającymi się kolorami
+        ledów!
+    </string>
+    <string name="pattern_bpm">BPM</string>
+    <string name="pattern_bpm_description">Wzór, który symuluje rytm bijącego serca 💖</string>
+    <string name="pattern_juggle">Żonglerka</string>
+    <string name="pattern_juggle_description">Nie pamiętam, jaki to wzór.</string>
+    <string name="pattern_faded_description">Nie pamiętam, jaki to wzór.</string>
+    <string name="pattern_faded">Faded</string>
+</resources>
