@@ -138,18 +138,10 @@ public class BluetoothFragment extends Fragment implements Status {
         deviceListAdapter.setDeviceList(deviceList);
     }
 
-
     private void setGuiDisable() {
         // Clear device list
         clearDeviceList();
     }
-
-    private void setGuiCannotConnected() {
-        // Set clickable item in recycler view
-        deviceListAdapter.setClickable(true);
-    }
-
-
 
     private void setGuiDisconnect() {
         // Set clickable item in recycler view
@@ -157,16 +149,14 @@ public class BluetoothFragment extends Fragment implements Status {
 
         // Get paired devices
         // TODO TESTING BT LIST
-        initTestList();
-//        initDeviceList();
+//        initTestList();
+        initDeviceList();
     }
-
 
     private void setGuiConnected() {
         // Set cannot click on the item in recycler view
         deviceListAdapter.setClickable(false);
     }
-
 
     private void clearDeviceList(){
         // Clear device list in adapter and update data

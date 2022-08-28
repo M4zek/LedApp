@@ -1,7 +1,7 @@
 package pl.mazi.ledapp.fragment;
 
 import android.os.*;
-import android.util.Log;
+import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
@@ -17,6 +17,8 @@ import pl.mazi.ledapp.adapter.PatternListAdapter;
 import pl.mazi.ledapp.intf.Status;
 import pl.mazi.ledapp.intf.What;
 import pl.mazi.ledapp.model.PatternModel;
+import pl.mazi.ledapp.service.ConnectedThread;
+import pl.mazi.ledapp.settings.MySettings;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,9 +30,9 @@ public class HomeFragment extends Fragment {
     private SeekBar brightnessBar;
     private TextView tv_brightness;
     private static Handler homeHandler;
-
     private TextView tv_not_connection;
     private ConstraintLayout mainViewLayout;
+    private Button btn_on_off;
 
 
 
@@ -41,7 +43,21 @@ public class HomeFragment extends Fragment {
         initRecyclerView();
         initSeekBar();
         initHandler();
+        initButtonOnClick();
         return view;
+    }
+
+    private void initButtonOnClick() {
+        btn_on_off.setOnClickListener(event->{
+            ConnectedThread connectedThread = ConnectedThread.getInstance();
+            if(btn_on_off.getText() == getString(R.string.btn_turn_on)){
+                MessageFragment.getMessageHandler().obtainMessage(What.MESSAGE_SEND,getString(R.string.turn_on_led)).sendToTarget();
+                connectedThread.write("0");
+            } else {
+                MessageFragment.getMessageHandler().obtainMessage(What.MESSAGE_SEND,getString(R.string.turn_off_led)).sendToTarget();
+                connectedThread.write("1");
+            }
+        });
     }
 
 
@@ -64,9 +80,36 @@ public class HomeFragment extends Fragment {
                     case Status.CONNECTED:
                         setGuiConnected();
                         break;
+
+                    // Data incoming from arduino
+                    case What.MESSAGE_READ:
+                        switch(msg.obj.toString()){
+                            case "Leds on!\r":
+                                setGuiLedsOn();
+                                break;
+
+                            case "Leds off!\r":
+                                setGuiLedsOff();
+                                break;
+                        }
+                        break;
                 }
             }
         };
+    }
+
+    private void setGuiLedsOn() {
+        btn_on_off.setText(getString(R.string.btn_turn_ff));
+        recyclerView.setVisibility(View.VISIBLE);
+        tv_brightness.setVisibility(View.VISIBLE);
+        brightnessBar.setVisibility(View.VISIBLE);
+    }
+
+    private void setGuiLedsOff(){
+        btn_on_off.setText(getString(R.string.btn_turn_on));
+        recyclerView.setVisibility(View.INVISIBLE);
+        tv_brightness.setVisibility(View.INVISIBLE);
+        brightnessBar.setVisibility(View.INVISIBLE);
     }
 
     private void assignVariables(View view) {
@@ -75,18 +118,21 @@ public class HomeFragment extends Fragment {
         tv_brightness = view.findViewById(R.id.tv_brightness);
         tv_not_connection = view.findViewById(R.id.tv_not_connection);
         mainViewLayout = view.findViewById(R.id.constraintLayout);
+        btn_on_off = view.findViewById(R.id.btn_on_off);
     }
 
     private void initRecyclerView() {
         ArrayList<PatternModel> patternModels = new ArrayList<>();
 
         patternModels.add(new PatternModel(
+                4,
                 PatternModel.Style.COLOR,
                 R.drawable.color_picker,
                 getString(R.string.pattern_one_color),
                 getString(R.string.pattern_one_color_description)));
 
         patternModels.add(new PatternModel(
+                5,
                 PatternModel.Style.BOX,
                 R.drawable.rainbow,
                 getString(R.string.pattern_rainbow),
@@ -94,6 +140,7 @@ public class HomeFragment extends Fragment {
                 Arrays.asList(getString(R.string.pattern_rainbow_option_1),getString(R.string.pattern_rainbow_option_2))));
 
         patternModels.add(new PatternModel(
+                8,
                 PatternModel.Style.BOX,
                 R.drawable.rider,
                 getString(R.string.pattern_knight_rider),
@@ -101,6 +148,7 @@ public class HomeFragment extends Fragment {
                 Arrays.asList(getString(R.string.pattern_knight_rider_option_1),getString(R.string.pattern_knight_rider_option_2))));
 
         patternModels.add(new PatternModel(
+                7,
                 PatternModel.Style.SIMPLE,
                 R.drawable.confetti,
                 getString(R.string.pattern_confetti),
@@ -108,6 +156,7 @@ public class HomeFragment extends Fragment {
         ));
 
         patternModels.add(new PatternModel(
+                10,
                 PatternModel.Style.SIMPLE,
                 R.drawable.bpm,
                 getString(R.string.pattern_bpm),
@@ -115,10 +164,27 @@ public class HomeFragment extends Fragment {
         ));
 
         patternModels.add(new PatternModel(
+                11,
                 PatternModel.Style.SIMPLE,
                 R.drawable.juggle,
                 getString(R.string.pattern_juggle),
                 getString(R.string.pattern_juggle_description)
+        ));
+
+        patternModels.add(new PatternModel(
+                12,
+                PatternModel.Style.SIMPLE,
+                R.drawable.faded,
+                getString(R.string.pattern_faded),
+                getString(R.string.pattern_faded_description)
+        ));
+
+        patternModels.add(new PatternModel(
+                13,
+                PatternModel.Style.COLOR,
+                R.drawable.breathing,
+                getString(R.string.pattern_breathing),
+                getString(R.string.pattern_breathing_description)
         ));
 
 
@@ -134,31 +200,38 @@ public class HomeFragment extends Fragment {
             }
 
             @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
+            public void onStartTrackingTouch(SeekBar seekBar) {}
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                Log.i("SekBar progress: ", String.valueOf(seekBar.getProgress()));
-                MessageFragment.getMessageHandler().obtainMessage(What.MESSAGE_ERROR,"Error").sendToTarget();
-                MessageFragment.getMessageHandler().obtainMessage(What.MESSAGE_SEND,"Send").sendToTarget();
-                MessageFragment.getMessageHandler().obtainMessage(What.MESSAGE_READ,"Read").sendToTarget();
+                ConnectedThread connectedThread = ConnectedThread.getInstance();
+                String msg = getString(R.string.set_brightness) + " " + seekBar.getProgress() + "%";
+                MessageFragment.getMessageHandler().obtainMessage(What.MESSAGE_SEND,msg).sendToTarget();
+                connectedThread.write("3");
+                int progress = seekBar.getProgress();
+                connectedThread.write(String.valueOf(progress));
             }
         });
     }
 
     private void setGuiDisconnect() {
+        btn_on_off.setText(R.string.btn_turn_on);
         tv_not_connection.setVisibility(View.VISIBLE);
         mainViewLayout.setVisibility(View.INVISIBLE);
     }
 
     private void setGuiConnected() {
+        MySettings mySettings = new MySettings(getContext());
         tv_not_connection.setVisibility(View.INVISIBLE);
         mainViewLayout.setVisibility(View.VISIBLE);
+        recyclerView.setVisibility(View.INVISIBLE);
+        brightnessBar.setVisibility(View.INVISIBLE);
+        tv_brightness.setVisibility(View.INVISIBLE);
+        brightnessBar.setProgress(mySettings.initBrightness());
     }
 
     private void setGuiDisable() {
+        btn_on_off.setText(R.string.btn_turn_on);
         tv_not_connection.setVisibility(View.VISIBLE);
         mainViewLayout.setVisibility(View.INVISIBLE);
     }

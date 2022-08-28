@@ -1,7 +1,9 @@
 package pl.mazi.ledapp.service;
 
 import android.bluetooth.BluetoothSocket;
+import pl.mazi.ledapp.MainActivity;
 import pl.mazi.ledapp.bluetooth.MyBluetoothInfo;
+import pl.mazi.ledapp.fragment.HomeFragment;
 import pl.mazi.ledapp.fragment.MessageFragment;
 import pl.mazi.ledapp.intf.What;
 import pl.mazi.ledapp.task.StatusMonitorTask;
@@ -68,8 +70,10 @@ public class ConnectedThread extends Thread{
                     // Create new string by decoding byte array
                     readMessage = new String(buffer,0,bytes);
 
-                    // Sending the read message to the messageFragment
+                    // Sending the read message
                     MessageFragment.getMessageHandler().obtainMessage(What.MESSAGE_READ,readMessage).sendToTarget();
+                    HomeFragment.getHomeHandler().obtainMessage(What.MESSAGE_READ,readMessage).sendToTarget();
+                    MainActivity.getMainHandler().obtainMessage(What.MESSAGE_READ,readMessage).sendToTarget();
 
                     bytes = 0;
                 } else {
@@ -115,6 +119,7 @@ public class ConnectedThread extends Thread{
 
     public void write(String input){
         try{
+            input += "\n";
             // Encoding input value to array bytes
             byte[] bytes = input.getBytes();
 

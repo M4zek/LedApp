@@ -10,9 +10,12 @@ import pl.mazi.ledapp.R;
 import pl.mazi.ledapp.fragment.MessageFragment;
 import pl.mazi.ledapp.intf.What;
 import pl.mazi.ledapp.model.PatternModel;
+import pl.mazi.ledapp.service.ConnectedThread;
 import top.defaults.colorpicker.ColorPickerView;
 
+import java.util.logging.Handler;
 
+// TODO rebuilding the dialogue to make it more "responsive"
 public class MyDialog extends Dialog {
 
     private PatternModel patternModel;
@@ -21,6 +24,8 @@ public class MyDialog extends Dialog {
     private LinearLayout optionLayout;
     private Button button_Confirm;
     private Button button_Cancel;
+
+    private ConnectedThread connectedThread;
 
     public MyDialog(@NonNull Context context, Builder builder) {
         super(context);
@@ -58,8 +63,11 @@ public class MyDialog extends Dialog {
                 ColorPickerView picker = createColorPicker();
                 optionLayout.addView(picker);
                 button_Confirm.setOnClickListener(event->{
-                    int color = picker.getColor();
-                    MessageFragment.getMessageHandler().obtainMessage(What.MESSAGE_SEND,"You picked: " + color).sendToTarget();
+                    long color = picker.getColor();
+                    connectedThread.write(String.valueOf(patternModel.getPattern_id()));
+                    connectedThread.write(String.valueOf(Math.abs(color)));
+                    MessageFragment.getMessageHandler().obtainMessage(What.MESSAGE_SEND,getContext().getString(R.string.set_pattern) + " " + patternModel.getTitle()).sendToTarget();
+                    dismiss();
                 });
                 break;
 
@@ -67,9 +75,11 @@ public class MyDialog extends Dialog {
                 RadioGroup radioGroup = createRadioGroup();
                 optionLayout.addView(radioGroup);
                 button_Confirm.setOnClickListener(event->{
-                    int id  = radioGroup.getCheckedRadioButtonId();
-                    RadioButton radioButton = findViewById(id);
-                    MessageFragment.getMessageHandler().obtainMessage(What.MESSAGE_SEND,"You selected: " + radioButton.getText()).sendToTarget();
+                    RadioButton radioButton = findViewById(radioGroup.getCheckedRadioButtonId());
+                    int numberOfPattern = patternModel.getPattern_id() + patternModel.getSubPatternList().indexOf(radioButton.getText());
+                    connectedThread.write(String.valueOf(numberOfPattern));
+                    MessageFragment.getMessageHandler().obtainMessage(What.MESSAGE_SEND,getContext().getString(R.string.set_pattern) + " " + patternModel.getTitle()).sendToTarget();
+                    dismiss();
                 });
                 break;
 
@@ -78,10 +88,11 @@ public class MyDialog extends Dialog {
                 textView.setText(R.string.pattern_approve);
                 optionLayout.addView(textView);
                 button_Confirm.setOnClickListener(event->{
-                    MessageFragment.getMessageHandler().obtainMessage(What.MESSAGE_SEND,"You selected: " + patternModel.getTitle()).sendToTarget();
+                    connectedThread.write(String.valueOf(patternModel.getPattern_id()));
+                    MessageFragment.getMessageHandler().obtainMessage(What.MESSAGE_SEND,getContext().getString(R.string.set_pattern) + " " + patternModel.getTitle()).sendToTarget();
+                    dismiss();
                 });
                 break;
-
         }
         tv_description.setText(patternModel.getDescription());
         tv_title.setText(patternModel.getTitle());
@@ -95,6 +106,7 @@ public class MyDialog extends Dialog {
         optionLayout = findViewById(R.id.optionsLayout);
         button_Cancel = findViewById(R.id.btn_cancel);
         button_Confirm = findViewById(R.id.btn_confirm);
+        connectedThread = ConnectedThread.getInstance();
     }
 
     private void initCancelClick(){
@@ -114,7 +126,6 @@ public class MyDialog extends Dialog {
         radioButton.setChecked(true);
         return radioGroup;
     }
-
 
     private ColorPickerView createColorPicker() {
         ColorPickerView colorPickerView = new ColorPickerView(getContext());

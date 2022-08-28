@@ -1,16 +1,101 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.LedApp" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.LedApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorPrimary">@color/primary_dark</item>
+        <item name="colorPrimaryVariant">@color/primary_dark</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_700</item>
-        <item name="colorOnSecondary">@color/black</item>
+        <item name="colorSecondary">@color/accent_dark</item>
+        <item name="colorSecondaryVariant">@color/accent_dark</item>
+        <item name="colorOnSecondary">@color/white</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="CustomDialogTheme" parent="@android:style/Theme.Dialog">
+        <item name="android:background">@color/accent_dark</item>
+        <item name="android:textColor">@color/accent_dark</item>
+    </style>
+
+    <style name="bt_item">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="bg_MainGridLayout">
+        <item name="android:useDefaultMargins">true</item>
+        <item name="android:background">@color/primary_dark</item>
+        <item name="android:padding">8dp</item>
+    </style>
+
+    <style name="bt_item_info_style">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="bt_value_item_style">
+        <item name="android:textSize">13sp</item>
+        <item name="android:textStyle">italic</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="btn_main_connect">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="cornerRadius">0dp</item>
+        <item name="strokeWidth">1px</item>
+        <item name="strokeColor">@color/white</item>
+    </style>
+
+    <style name="tabLayout_style">
+        <item name="android:background">@color/primary_dark</item>
+        <item name="tabIndicatorColor">@color/accent_dark</item>
+        <item name="tabSelectedTextColor">@color/accent_dark</item>
+        <item name="tabTextAppearance">@style/TextAppearance.AppCompat.Small</item>
+    </style>
+
+    <style name="bg_message_layout">
+        <item name="android:background">#32AAAAAA</item>
+        <item name="android:layout_margin">5dp</item>
+        <item name="android:padding">2dp</item>
+        <item name="cornerRadius">20dp</item>
+    </style>
+
+    <style name="tv_data_message">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/blue_dark</item>
+    </style>
+
+    <style name="tv_data_message_error">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/red_dark</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="tv_msg_message">
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">@color/gray_dark</item>
+    </style>
+
+    <style name="tv_not_connection">
+        <item name="android:textColor">@color/blue_dark</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="btn_cancel">
+        <item name="android:backgroundTint">@color/bgColor</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="btn_confirm">
+        <item name="android:backgroundTint">@color/accent_dark</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
 </resources>

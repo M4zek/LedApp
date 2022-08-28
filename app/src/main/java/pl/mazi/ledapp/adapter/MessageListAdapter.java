@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
+import android.text.style.BackgroundColorSpan;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -84,7 +85,7 @@ public class MessageListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         // Get message from list
         final MessageInfoModel messageInfoModel = (MessageInfoModel) messageList.get(position);
 
-        // Create new params to linear layout
+        // Create new params to layout
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
                                                     ViewGroup.LayoutParams.WRAP_CONTENT,
                                                     ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -98,18 +99,21 @@ public class MessageListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             case MESSAGE_ERROR:
                 params.addRule(RelativeLayout.ALIGN_PARENT_END);
                 params.addRule(RelativeLayout.ALIGN_PARENT_START);
+                itemHolder.messageItemLayout.setBackgroundColor(Color.parseColor("#20eb3434"));
                 itemHolder.messageItemLayout.setGravity(Gravity.CENTER_HORIZONTAL);
                 break;
 
             // Set the message to the right in the layout
             case MESSAGE_SENDER:
                 params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+                itemHolder.messageItemLayout.setBackgroundColor(Color.parseColor("#2034d5eb"));
                 itemHolder.messageItemLayout.setGravity(Gravity.END);
                 break;
 
             // Set the message to the left in the layout
             case MESSAGE_RECEIVER:
                 params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+                itemHolder.messageItemLayout.setBackgroundColor(Color.parseColor("#20ff007b"));
                 itemHolder.messageItemLayout.setGravity(Gravity.START);
                 break;
         }

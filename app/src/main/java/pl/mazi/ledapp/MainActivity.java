@@ -1,13 +1,11 @@
 package pl.mazi.ledapp;
 
+import android.bluetooth.BluetoothAdapter;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.*;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,18 +13,21 @@ import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.tabs.TabLayout;
 import pl.mazi.ledapp.adapter.VPAdapter;
 import pl.mazi.ledapp.bluetooth.MyBluetoothInfo;
-import pl.mazi.ledapp.fragment.BluetoothFragment;
-import pl.mazi.ledapp.fragment.HomeFragment;
-import pl.mazi.ledapp.fragment.MessageFragment;
-import pl.mazi.ledapp.fragment.SettingsFragment;
+import pl.mazi.ledapp.fragment.*;
 import pl.mazi.ledapp.intf.Status;
 import pl.mazi.ledapp.intf.What;
+import pl.mazi.ledapp.service.ConnectedThread;
 import pl.mazi.ledapp.service.CreateConnectedThread;
 import pl.mazi.ledapp.settings.MySettings;
 import pl.mazi.ledapp.task.StatusMonitorTask;
 
 import java.util.Timer;
 import java.util.TimerTask;
+
+
+// TODO make auto connect with device
+// TODO make a
+
 
 public class MainActivity extends AppCompatActivity implements Status, What {
 
@@ -44,10 +45,13 @@ public class MainActivity extends AppCompatActivity implements Status, What {
     private ProgressBar progressBar;
     private static CreateConnectedThread createConnectedThread;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        MySettings mySettings = new MySettings(this);
+        mySettings.loadLanguage();
+        mySettings.setTheme();
+//        tryTurnOnBluetooth();
         setContentView(R.layout.activity_main);
         assignVariables();
         initButtonClick();
@@ -82,8 +86,10 @@ public class MainActivity extends AppCompatActivity implements Status, What {
                     createConnectedThread.start();
                 }
             } else {
+                ConnectedThread connectedThread = ConnectedThread.getInstance();
+                connectedThread.write("2");
+                MessageFragment.getMessageHandler().obtainMessage(What.MESSAGE_SEND,"Disconnecting!").sendToTarget();
                 progressBar.setVisibility(View.VISIBLE);
-                createConnectedThread.destroyThread();
             }
         });
     }
@@ -107,7 +113,6 @@ public class MainActivity extends AppCompatActivity implements Status, What {
         // Set adapter to viewPager
         viewPager.setAdapter(vpAdapter);
     }
-
 
     private void initStatusMonitor() {
         // Initialize status monitor task
@@ -152,6 +157,7 @@ public class MainActivity extends AppCompatActivity implements Status, What {
                     // Status was change on connected
                     case CONNECTED:
                         initGuiConnected();
+                        writeInitDataToArduino();
                         break;
 
                     case CANNOT_CONNECTED:
@@ -161,6 +167,14 @@ public class MainActivity extends AppCompatActivity implements Status, What {
                     // Update device info in gui
                     case UPDATE_DEVICE_INFO:
                         updateDeviceInfo();
+                        break;
+
+                    case What.MESSAGE_READ:
+                        switch (msg.obj.toString()){
+                            case "Disconnect!\r":
+                                createConnectedThread.destroyThread();
+                                break;
+                        }
                         break;
                 }
             }
@@ -175,6 +189,15 @@ public class MainActivity extends AppCompatActivity implements Status, What {
         tv_bt_name.setText(getResources().getString(R.string.bt_not_supported));
         btn_connecting.setEnabled(true);
         progressBar.setVisibility(View.INVISIBLE);
+    }
+
+    private void writeInitDataToArduino(){
+        ConnectedThread connectedThread = ConnectedThread.getInstance();
+        MySettings mySettings = new MySettings(this);
+        connectedThread.write((String.valueOf(mySettings.resetPin())));
+        connectedThread.write(String.valueOf(mySettings.initBrightness()));
+        connectedThread.write(String.valueOf(mySettings.initColor()));
+        connectedThread.write(mySettings.turnLedAfterConnected() ? "true" : "false");
     }
 
     private void updateDeviceInfo() {
@@ -215,8 +238,23 @@ public class MainActivity extends AppCompatActivity implements Status, What {
         tv_bt_address.setText("...");
     }
 
+    private void tryTurnOnBluetooth(){
+        MySettings mySettings = new MySettings(this);
+        if(mySettings.turnOnBluetoothAuto()) {
+            BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+            bluetoothAdapter.enable();
+            Toast.makeText(this, getString(R.string.toast_bt_on), Toast.LENGTH_SHORT).show();
+        }
+    }
+
     // Get handler
     public static Handler getMainHandler() {
         return mainHandler;
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }

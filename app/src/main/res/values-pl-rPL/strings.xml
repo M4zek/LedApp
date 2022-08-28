@@ -76,4 +76,10 @@
     <string name="pattern_juggle_description">Nie pamiętam, jaki to wzór.</string>
     <string name="pattern_faded_description">Nie pamiętam, jaki to wzór.</string>
     <string name="pattern_faded">Faded</string>
+    <string name="reset_pin">Pin resetujący</string>
+    <string name="set_brightness">"Prosze ustawić jasność na "</string>
+    <string name="set_pattern">Prosze ustawić wzorzec</string>
+    <string name="turn_on_led">Włącz ledy</string>
+    <string name="turn_off_led">Wyłącz ledy</string>
+    <string name="toast_bt_on">"Bluetooth zostało automatycznie włączone! "</string>
 </resources>

@@ -21,13 +21,14 @@
             android:id="@+id/textViewDeviceName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
+            style="@style/bt_item"
             android:textSize="18sp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/textViewDeviceAddress"
-            android:textColor="@color/white"
+            style="@style/bt_item"
+            android:textSize="14sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </LinearLayout>

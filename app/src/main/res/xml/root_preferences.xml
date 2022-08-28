@@ -4,19 +4,30 @@
     <PreferenceCategory
         app:title="@string/settings_title_led">
 
-        <EditTextPreference
-            app:title="@string/pref_num_of_led"
-            app:key="LED_NUM"
-            app:useSimpleSummaryProvider="true"
-            app:defaultValue="10"
-        />
+        <!--    TODO IN THE FUTURE -->
+<!--        <EditTextPreference-->
+<!--                app:title="@string/pref_num_of_led"-->
+<!--                app:key="LED_NUM"-->
+<!--                app:useSimpleSummaryProvider="true"-->
+<!--                app:defaultValue="10"/>-->
 
-        <EditTextPreference
+<!--             TODO IN THE FUTURE-->
+<!--        <SeekBarPreference
                 app:title="@string/pref_data_pin"
                 app:key="DATA_PIN"
-                app:useSimpleSummaryProvider="true"
-                app:defaultValue="7"
-        />
+                android:max="12"
+                app:min="3"
+                app:showSeekBarValue="true"
+                app:defaultValue="7"/>-->
+
+        <SeekBarPreference
+            app:title="@string/reset_pin"
+            app:key="RESET_PIN"
+            android:max="9"
+            app:min="3"
+            app:showSeekBarValue="true"
+            app:defaultValue="5"/>
+
 
         <SwitchPreferenceCompat
             app:title="@string/pref_turn_on_led_after_connect"
@@ -24,10 +35,12 @@
             app:defaultValue="false"
         />
 
-        <EditTextPreference
-                app:title="@string/pref_init_brightness"
+        <SeekBarPreference
                 app:key="INIT_BRIGHTNESS"
-                app:useSimpleSummaryProvider="true"
+                app:title="@string/pref_init_brightness"
+                app:showSeekBarValue="true"
+                android:max="100"
+                android:dependency="LED_TURN_ON"
                 app:defaultValue="50"
         />
 
@@ -37,6 +50,7 @@
                 android:entries="@array/init_color_entries"
                 android:entryValues="@array/init_color_value"
                 app:useSimpleSummaryProvider="true"
+                android:dependency="LED_TURN_ON"
                 android:defaultValue="16774657"
         />
 
@@ -82,8 +96,5 @@
             android:dependency="BT_AUTO_CONNECT"
             app:useSimpleSummaryProvider="true"
         />
-
-
     </PreferenceCategory>
-
 </PreferenceScreen>

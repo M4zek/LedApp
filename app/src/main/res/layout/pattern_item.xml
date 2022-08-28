@@ -6,6 +6,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:padding="5dp"
+        android:background="#03FFFFFF"
         android:layout_margin="2dp"
         android:id="@+id/constraintLayout">
 
@@ -16,7 +17,7 @@
             tools:ignore="MissingConstraints"
             android:id="@+id/imageView"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent" app:layout_constraintBottom_toTopOf="@+id/view"/>
+            app:layout_constraintStart_toStartOf="parent"/>
 
     <TextView
             android:id="@+id/tv_titlePattern"
@@ -30,13 +31,5 @@
             app:layout_constraintStart_toEndOf="@+id/imageView"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
-
-
-    <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/white"
-            tools:layout_editor_absoluteX="5dp"
-            app:layout_constraintBottom_toBottomOf="parent" android:id="@+id/view"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

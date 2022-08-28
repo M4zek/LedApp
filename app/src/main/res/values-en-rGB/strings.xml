@@ -71,4 +71,10 @@
     <string name="pattern_juggle_description">I can\'t remember what the pattern is</string>
     <string name="pattern_faded">Faded</string>
     <string name="pattern_faded_description">I can\'t remember what the pattern is</string>
+    <string name="reset_pin">Reset pin</string>
+    <string name="set_brightness">"Please set the brightness to "</string>
+    <string name="set_pattern">Please set the pattern</string>
+    <string name="turn_on_led">Turn on the LEDs</string>
+    <string name="turn_off_led">Turn off the LEDs</string>
+    <string name="toast_bt_on">Bluetooth has been automatically enabled!</string>
 </resources>

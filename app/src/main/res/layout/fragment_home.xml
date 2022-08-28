@@ -12,10 +12,12 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:padding="16dp"
+            android:visibility="invisible"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintVertical_bias="0.0">
 
 
@@ -23,7 +25,6 @@
                 android:id="@+id/rv_Patterns"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-
                 app:layout_constraintBottom_toTopOf="@+id/tv_brightness"
                 app:layout_constraintTop_toTopOf="parent"/>
 
@@ -44,12 +45,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="10dp"
-                app:layout_constraintBottom_toTopOf="@+id/test_button"
+                app:layout_constraintBottom_toTopOf="@+id/btn_on_off"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
 
         <Button
-                android:id="@+id/test_button"
+                android:id="@+id/btn_on_off"
                 android:text="@string/btn_turn_on"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -63,7 +64,7 @@
             android:id="@+id/tv_not_connection"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="invisible"
+            android:visibility="visible"
             android:text="@string/tv_bt_not_connect"
             style="@style/tv_not_connection"
             android:textAlignment="center"
